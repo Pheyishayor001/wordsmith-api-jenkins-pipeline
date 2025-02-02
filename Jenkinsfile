@@ -59,7 +59,7 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'docker_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
         
         sh '''
-        docker tag wordsmithwebimg pheyishayor001/wordsmithapi:${BUILD_ID}
+        docker tag wordsmithapi pheyishayor001/wordsmithapi:${BUILD_ID}
         docker login -u="$USERNAME" -p="$PASSWORD"
         docker push pheyishayor001/wordsmithapi:${BUILD_ID}       
         '''
