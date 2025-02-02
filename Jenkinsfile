@@ -48,10 +48,8 @@ pipeline {
     stage('Build docker image') {
       steps {
         echo 'Building the wordsmith API application docker image...'
-        // sh 'docker --version'
-        
-        sh '''
-          docker --version
+                
+        sh '''          
           docker build -t wordsmithapi .
           '''
       }
@@ -59,14 +57,14 @@ pipeline {
     stage('Push image to dockerhub')  {      
       steps {
         echo 'pushing image to dockerhub'
-        // withCredentials([usernamePassword(credentialsId: 'docker_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+        withCredentials([usernamePassword(credentialsId: 'docker_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
         
-        // sh '''
-        // docker tag wordsmithwebimg pheyishayor001/wordsmithwebimg:${BUILD_ID}
-        // docker login -u="$USERNAME" -p="$PASSWORD"
-        // docker push pheyishayor001/wordsmithwebimg:${BUILD_ID}       
-        // '''
-        // }
+        sh '''
+        docker tag wordsmithwebimg pheyishayor001/wordsmithapi:${BUILD_ID}
+        docker login -u="$USERNAME" -p="$PASSWORD"
+        docker push pheyishayor001/wordsmithapi:${BUILD_ID}       
+        '''
+        }
       }
     }
     stage('Deploy') {
