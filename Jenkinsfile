@@ -1,4 +1,3 @@
-// needs to be edited
 pipeline {
   agent any
   tools {
@@ -10,18 +9,18 @@ pipeline {
       steps {
         echo 'Scaning files with sonar-scanner'
         
-       // withCredentials([
-       //   string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN'),
-       //   string(credentialsId: 'sonar-host-url', variable: 'SONAR_HOST_URL')
-       //  ]) {
-       //  sh '''
-       //  mvn -X clean verify sonar:sonar \
-       //    -Dsonar.projectKey=wordsmith-api-scan \
-       //    -Dsonar.host.url=http://98.84.163.43:9000 \
-       //    -Dsonar.login=sqp_2911d826ccad00404e5e967ec48813b8194bc011
+       withCredentials([
+         string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN'),
+         string(credentialsId: 'sonar-host-url', variable: 'SONAR_HOST_URL')
+        ]) {
+        sh '''
+        mvn clean verify sonar:sonar \
+          -Dsonar.projectKey=wordsmith-api-scan \
+          -Dsonar.host.url=http://98.84.163.43:9000 \
+          -Dsonar.login=sqp_2911d826ccad00404e5e967ec48813b8194bc011
 
-       //  '''
-       //  }
+        '''
+        }
       }
     }
     stage('build artifact') {
@@ -69,8 +68,7 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        echo 'Deploying the application'
-        // sh 'ssh -o StrictHostKeyChecking=no -i "../network.pem" ec2-user@172.31.93.239 -t "docker ps -aq | xargs docker rm -f; docker run -d -p 80:80 pheyishayor001/wordsmithwebimg:${BUILD_ID}"'
+        echo 'Deploying the application'        
       }
     }
   }
