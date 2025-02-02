@@ -1,28 +1,27 @@
 // needs to be edited
 pipeline {
   agent any
-  // tools {
-      // go 'myGo'      
-    // }
+  tools {
+      mvn 'myMaven'      
+    }
   
   stages {
     stage('scan files') {
       steps {
         echo 'Scaning files with sonar-scanner'
         
-       // withCredentials([
-       //   string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN'),
-       //   string(credentialsId: 'sonar-host-url', variable: 'SONAR_HOST_URL')
-       //  ]) {
-       //  sh '''
-       //  /opt/sonar-scanner/bin/sonar-scanner \
-       //    -Dsonar.projectKey=goProjectScan \
-       //    -Dsonar.sources=. \
-       //    -Dsonar.host.url=$SONAR_HOST_URL \
-       //    -Dsonar.login=$SONAR_TOKEN
+       withCredentials([
+         string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN'),
+         string(credentialsId: 'sonar-host-url', variable: 'SONAR_HOST_URL')
+        ]) {
+        sh '''
+        mvn clean verify sonar:sonar \
+          -Dsonar.projectKey=wordsmith-api-scan \
+          -Dsonar.host.url=SONAR_HOST_URL \
+          -Dsonar.login=SONAR_TOKEN
 
-       //  '''
-       //  }
+        '''
+        }
       }
     }
     stage('build artifact') {
