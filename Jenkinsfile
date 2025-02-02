@@ -41,7 +41,7 @@ pipeline {
                 sh '''
                    curl -u "$USERNAME:$PASSWORD" \
                      --upload-file ./target/*.jar \
-                         http://44.223.63.169:8081/repository/wordsmith-api-build/
+                         $NEXUS_HOST_URL
                 '''
             }
         // sh '''
