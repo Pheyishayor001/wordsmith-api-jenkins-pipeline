@@ -10,28 +10,26 @@ pipeline {
       steps {
         echo 'Scaning files with sonar-scanner'
         
-       withCredentials([
-         string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN'),
-         string(credentialsId: 'sonar-host-url', variable: 'SONAR_HOST_URL')
-        ]) {
-        sh '''
-        mvn -X clean verify sonar:sonar \
-          -Dsonar.projectKey=wordsmith-api-scan \
-          -Dsonar.host.url=http://98.84.163.43:9000 \
-          -Dsonar.login=sqp_2911d826ccad00404e5e967ec48813b8194bc011
+       // withCredentials([
+       //   string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN'),
+       //   string(credentialsId: 'sonar-host-url', variable: 'SONAR_HOST_URL')
+       //  ]) {
+       //  sh '''
+       //  mvn -X clean verify sonar:sonar \
+       //    -Dsonar.projectKey=wordsmith-api-scan \
+       //    -Dsonar.host.url=http://98.84.163.43:9000 \
+       //    -Dsonar.login=sqp_2911d826ccad00404e5e967ec48813b8194bc011
 
-        '''
-        }
+       //  '''
+       //  }
       }
     }
     stage('build artifact') {
       steps {
         echo 'Building the artifacts'
-        // sh '''        
-        // go mod init wordsmith
-        // go mod tidy
-        // go build -o wordsmith dispatcher.go        
-        // '''
+        sh '''        
+        mvn clean install      
+        '''
       }
     }
     stage('Push to nexus') {
