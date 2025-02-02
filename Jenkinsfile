@@ -2,9 +2,9 @@
 pipeline {
   agent any
   // tools {
-      // go 'myGo'
-      
+      // go 'myGo'      
     // }
+  
   stages {
     stage('scan files') {
       steps {
