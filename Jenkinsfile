@@ -18,7 +18,7 @@ pipeline {
         mvn clean verify sonar:sonar \
           -Dsonar.projectKey=wordsmith-api-scan \
           -Dsonar.host.url=SONAR_HOST_URL \
-          -Dsonar.login=SONAR_TOKEN
+          -Dsonar.login=http://98.84.163.43:9000
 
         '''
         }
