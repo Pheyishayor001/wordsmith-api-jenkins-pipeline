@@ -27,7 +27,7 @@ pipeline {
     }
     stage('build artifact') {
       steps {
-        echo 'Building the artifact'
+        echo 'Building the artifacts'
         // sh '''        
         // go mod init wordsmith
         // go mod tidy
