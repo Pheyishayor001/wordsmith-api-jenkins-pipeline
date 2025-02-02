@@ -10,14 +10,14 @@ pipeline {
         echo 'Scaning files with sonar-scanner'
         
        withCredentials([
-         string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN'),
+         string(credentialsId: 'sonar-token-api', variable: 'SONAR_TOKEN_API'),
          string(credentialsId: 'sonar-host-url', variable: 'SONAR_HOST_URL')
         ]) {
         sh '''
         mvn clean verify sonar:sonar \
           -Dsonar.projectKey=wordsmith-api-scan \
           -Dsonar.host.url=$SONAR_HOST_URL \
-          -Dsonar.login=sqp_2911d826ccad00404e5e967ec48813b8194bc011
+          -Dsonar.login=$SONAR_TOKEN_API
 
         '''
         }
