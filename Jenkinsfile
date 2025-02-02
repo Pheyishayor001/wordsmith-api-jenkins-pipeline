@@ -36,25 +36,19 @@ pipeline {
       steps {
         echo 'Pushing image to nexus artifactory...' 
         withCredentials([usernamePassword(credentialsId: 'nexus_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
-                        string(credentialsId: 'nexus-host-url', variable: 'NEXUS_HOST_URL')]) {                
-                // Example build command
+                        string(credentialsId: 'nexus-host-url', variable: 'NEXUS_HOST_URL')]) {                                
                 sh '''
                    curl -u "$USERNAME:$PASSWORD" \
                      --upload-file ./target/*.jar \
                          $NEXUS_HOST_URL
                 '''
-            }
-        // sh '''
-        //            curl -u "admin:police" \
-        //              --upload-file ./target/*.jar \
-        //                  http://44.223.63.169:8081/repository/wordsmith-api-build/
-        //         '''
-        
+            }        
       }
     }
     stage('Build docker image') {
       steps {
         echo 'Building the wordsmith API application docker image...'
+        docker --version
         // sh 'docker build -t wordsmithwebimg .'
       }
     }
