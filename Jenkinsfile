@@ -35,15 +35,15 @@ pipeline {
     stage('Push to nexus') {
       steps {
         echo 'Pushing image to nexus artifactory...' 
-        // withCredentials([usernamePassword(credentialsId: 'nexus_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
-        //                 string(credentialsId: 'nexus-host-url', variable: 'NEXUS_HOST_URL')]) {                
-        //         // Example build command
-        //         sh '''
-        //            curl -u "$USERNAME:$PASSWORD" \
-        //              --upload-file ./wordsmith \
-        //                  $NEXUS_HOST_URL/repository/wordsmith-go-artifact/
-        //         '''
-        //     }
+        withCredentials([usernamePassword(credentialsId: 'nexus_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
+                        string(credentialsId: 'nexus-host-url', variable: 'NEXUS_HOST_URL')]) {                
+                // Example build command
+                sh '''
+                   curl -u "$USERNAME:$PASSWORD" \
+                     --upload-file ./target/*.jar \
+                         http://44.223.63.169:8081/repository/wordsmith-api-java-project/ //if it runs, replace url with credential
+                '''
+            }
         
       }
     }
