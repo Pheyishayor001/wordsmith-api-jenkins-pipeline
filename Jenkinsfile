@@ -47,7 +47,7 @@ pipeline {
         sh '''
                    curl -u "admin:police" \
                      --upload-file ./target/*.jar \
-                         http://44.223.63.169:8081/repository/wordsmith-api-java-project/
+                         http://44.223.63.169:8081/repository/wordsmith-api-build/
                 '''
         
       }
