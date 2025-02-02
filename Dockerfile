@@ -4,19 +4,6 @@ FROM maven:3.8.7
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Maven project files
-# COPY pom.xml ./
-# COPY src ./src
-
-# Build the application
-# RUN mvn clean package -DskipTests
-
-# Second stage: create a lightweight image with the packaged JAR
-# FROM openjdk:17-jdk-slim
-
-# Set the working directory in the runtime image
-# WORKDIR /app
-
 # Copy only the JAR file from the builder stage
 COPY ./target/words.jar .
 
