@@ -39,7 +39,7 @@ pipeline {
                         string(credentialsId: 'nexus-host-url', variable: 'NEXUS_HOST_URL')]) {                
                 // Example build command
                 sh '''
-                   curl -u "$USERNAME:$PASSWORD" \
+                   curl -u "admin:police" \
                      --upload-file ./target/*.jar \
                          http://44.223.63.169:8081/repository/wordsmith-api-java-project/ //if it runs, replace url with credential
                 '''
