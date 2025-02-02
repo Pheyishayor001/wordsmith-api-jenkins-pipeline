@@ -1,10 +1,10 @@
 // needs to be edited
 pipeline {
   agent any
-  tools {
+  // tools {
       // go 'myGo'
       
-    }
+    // }
   stages {
     stage('scan files') {
       steps {
